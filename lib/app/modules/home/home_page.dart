@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'all_cards_pages.dart';
 import 'home_controller.dart';
+import 'my_cards_pages.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
@@ -14,7 +15,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends ModularState<HomePage, HomeController> {
   int _currentIndex = 0;
   List<Widget> paginas = [
-    AllCardsPage(), Container(), Container(),
+    AllCardsPage(), Container(), MyCardsPage(),
   ];
   @override
   Widget build(BuildContext context) {
