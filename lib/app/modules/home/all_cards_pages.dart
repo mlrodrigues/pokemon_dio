@@ -29,7 +29,7 @@ class _AllCardsPageState extends ModularState<AllCardsPage, HomeController> {
 
   void loadingPokemons() async {
     // ignore: non_constant_identifier_names
-    var Allpokemons = await repository.getAllPokemons();
+    var Allpokemons = await controller.getAllPokemons();
     setState(() {
       pokemons = Allpokemons;
     });

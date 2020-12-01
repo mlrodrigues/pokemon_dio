@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:pokemon_dio/app/modules/home/pokemon_repository.dart';
 import 'detail_page.dart';
 import 'domain/pokemon.dart';
 import 'home_controller.dart';
-import 'home_module.dart';
 
 class MyCardsPage extends StatefulWidget {
   final String title;
@@ -15,22 +14,11 @@ class MyCardsPage extends StatefulWidget {
 }
 
 class _MyCardsPageState extends ModularState<MyCardsPage, HomeController> {
-  final PokemonRepository repository = HomeModule.to.get<PokemonRepository>();
-
-  List<Pokemon> pokemons = [];
 
   @override
   void initState(){
-    loadingPokemons();
+    controller.atualizarPokemonsObtidos();
     super.initState();
-  }
-
-  void loadingPokemons() async {
-    var pokemonsObtidos = await repository.getPokemonsObtidos();
-    setState(() {
-      pokemons = pokemonsObtidos;
-    });
-
   }
 
   abrirTelaDetalhar(Pokemon pokemon) {
@@ -46,11 +34,12 @@ class _MyCardsPageState extends ModularState<MyCardsPage, HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GridView.count(
-        childAspectRatio: 0.72,
-        crossAxisCount: 2,
-        children: List.generate(pokemons.length, (index){
-          var pokemon = pokemons[index];
+      body: Observer(
+        builder: (_) => GridView.count(
+          childAspectRatio: 0.72,
+          crossAxisCount: 2,
+          children: List.generate(controller.getPokemonsObtidos().length, (index){
+          var pokemon = controller.getPokemonsObtidos()[index];
           return GestureDetector(
             onTap: () => abrirTelaDetalhar(pokemon),
             child: Padding(
@@ -62,6 +51,7 @@ class _MyCardsPageState extends ModularState<MyCardsPage, HomeController> {
             ),
           );
         }),
+        )
       )
     );
   }
