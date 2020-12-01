@@ -29,7 +29,10 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             BottomNavigationBarItem(icon: Icon(Icons.person), label: "obtidos")
           ],
         ),
-        body: paginas[_currentIndex]
+        body: IndexedStack(
+          index: _currentIndex,
+          children: paginas,
+        )
     );
   }
 
