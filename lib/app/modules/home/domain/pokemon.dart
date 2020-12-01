@@ -34,10 +34,14 @@ class Pokemon{
 
   static Pokemon fromJson(String json){
     Map<String, dynamic> map = jsonDecode(json);
+    return fromMapJson(map);
+  }
+
+  static Pokemon fromMapJson(Map<String, dynamic> map){
     return Pokemon(
       id: map['id'],
-      imageUrl: map['imageUrl'] ,
-      imageUrlHiRes: map['imageUrlHiRes'] ,
+      imageUrl: map['imageUrl'],
+      imageUrlHiRes: map['imageUrlHiRes'],
       name: map['name'],
       types: map['types'],
     );

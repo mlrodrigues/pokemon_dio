@@ -19,6 +19,12 @@ class _MyCardsPageState extends ModularState<MyCardsPage, HomeController> {
 
   List<Pokemon> pokemons = [];
 
+  @override
+  void initState(){
+    loadingPokemons();
+    super.initState();
+  }
+
   void loadingPokemons() async {
     var pokemonsObtidos = await repository.getPokemonsObtidos();
     setState(() {
@@ -37,11 +43,6 @@ class _MyCardsPageState extends ModularState<MyCardsPage, HomeController> {
     );
   }
 
-  @override
-  void initState(){
-    loadingPokemons();
-    super.initState();
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

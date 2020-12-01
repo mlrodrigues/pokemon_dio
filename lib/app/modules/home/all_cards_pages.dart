@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:pokemon_dio/app/modules/home/pokemon_repository.dart';
 import 'detail_page.dart';
 import 'domain/pokemon.dart';
 import 'home_controller.dart';
+import 'home_module.dart';
 
 class AllCardsPage extends StatefulWidget {
   final String title;
@@ -15,29 +17,23 @@ class AllCardsPage extends StatefulWidget {
 class _AllCardsPageState extends ModularState<AllCardsPage, HomeController> {
   //use 'controller' variable to access controller
 
-  List<Pokemon> pokemons = [
-    Pokemon(
-        id: "ex16-16",
-        types: ['Lightning'],
-        imageUrl: "https://images.pokemontcg.io/ex16/16.png",
-        imageUrlHiRes: "https://images.pokemontcg.io/ex16/16_hires.png",
-        name: "Magneton"
-    ),
-    Pokemon(
-        id: "ex14-28",
-        types: ["Grass"],
-        imageUrl: "https://images.pokemontcg.io/ex14/28.png",
-        imageUrlHiRes: "https://images.pokemontcg.io/ex14/28_hires.png",
-        name: "Venusaur"
-    ),
-    Pokemon(
-        id: "xy1-42",
-        types: ["Lightning"],
-        imageUrl: "https://images.pokemontcg.io/xy1/42.png",
-        imageUrlHiRes: "https://images.pokemontcg.io/xy1/42_hires.png",
-        name: "Pikachu"
-    )
-  ];
+  final PokemonRepository repository = HomeModule.to.get<PokemonRepository>();
+
+  List<Pokemon> pokemons = [];
+
+  @override
+  void initState(){
+    loadingPokemons();
+    super.initState();
+  }
+
+  void loadingPokemons() async {
+    // ignore: non_constant_identifier_names
+    var Allpokemons = await repository.getAllPokemons();
+    setState(() {
+      pokemons = Allpokemons;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
