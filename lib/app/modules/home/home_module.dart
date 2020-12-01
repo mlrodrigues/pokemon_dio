@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:dio/native_imp.dart';
 import 'pokemon_repository.dart';
 import 'home_controller.dart';
