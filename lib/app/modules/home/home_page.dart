@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'detail_page.dart';
 import 'domain/pokemon.dart';
 import 'home_controller.dart';
 
@@ -72,60 +73,3 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
   }
 }
 
-class PageDetail extends StatefulWidget{
-  final Pokemon pokemon;
-  const PageDetail({Key key, this.pokemon}) : super(key: key);
-
-  @override
-  _PageDetailState createState() => _PageDetailState();
-}
-
-class _PageDetailState extends State<PageDetail>{
-  bool exibirCardExpadido = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.pokemon.name),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            GestureDetector(
-              onTap: () => alterarExibicaoCard(),
-              child: Visibility(
-                visible: !exibirCardExpadido ,
-                child: Hero(
-                  tag: widget.pokemon.id,
-                  child: Image.network(widget.pokemon.imageUrl),
-                ),
-              ),
-            ),
-            GestureDetector(
-              onTap: () => alterarExibicaoCard(),
-              child: Visibility(
-                visible: exibirCardExpadido ,
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Container(
-                    child: Image.network(widget.pokemon.imageUrlHiRes),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        )
-      )
-    );
-  }
-
-  alterarExibicaoCard() {
-    setState(() {
-      exibirCardExpadido = !exibirCardExpadido;
-    });
-  }
-}
